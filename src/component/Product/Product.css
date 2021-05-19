@@ -1,0 +1,22 @@
+.product{
+    display:flex;
+    border-bottom: 1px solid lightgray;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.product-name{
+    color: blue;
+    font-weight: 500;
+}
+.product-information{
+    margin-left: 10px;
+}
+.chart-button{
+    background-color: goldenrod;
+    width: 150px;
+    height: 30px;
+    border:1px solid rgb(150, 129, 10);
+    border-radius: 5px;
+    cursor: pointer;
+}
