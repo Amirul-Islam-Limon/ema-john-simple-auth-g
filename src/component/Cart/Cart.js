@@ -1,7 +1,9 @@
 import React from 'react';
 
+
 const Cart = (props) => {
-    const productPrice = props.cart.reduce((total, product)=> total + product.price,0)
+    // console.log(props)
+    const productPrice = props.cart.reduce((total, product)=> total + product.price* product.quantity,0)
     let shippingCost = 6.99;
     if(productPrice > 35){
         shippingCost = 0
@@ -18,11 +20,14 @@ const Cart = (props) => {
         <div>
             <h3 >Order Summary</h3>
             <p ><big>Items ordered:{props.cart.length}</big></p>
-            <p><small>price:{productPrice}</small></p>
+            <p><small>price:{(productPrice).toFixed(2)}</small></p>
             <p><small>Shipping Cost:{shippingCost}</small></p>
-            <p><small>VAT + Tax :{tax}</small></p>
+            <p><small>VAT + Tax :{(tax).toFixed(2)}</small></p>
             <h4>Total Price:{Math.ceil(productPrice + shippingCost + tax)}</h4>
-
+            <br />
+            {
+                props.children
+            }
         </div>
     );
 };
