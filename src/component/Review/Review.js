@@ -4,7 +4,7 @@ import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../uti
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import './Review.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 const Review = () => {
    const [cart, setCart] =useState([])
@@ -25,10 +25,11 @@ const Review = () => {
         removeFromDatabaseCart(productKey)
     }
 
-    const handleOrder=()=>{
-        setCart([]);
-        processOrder(cart);
+    const history = useHistory()
+    const handleProceedCheckout=()=>{
+        history.push('/shipment')
     }
+
     return (
         <div className="review-container">
             <div className="reviewItem-container">
@@ -41,7 +42,7 @@ const Review = () => {
             </div>
             <div className="placeOrder-container">
                 <Cart cart={cart}>
-                <Link to="orderPlace"><button onClick={handleOrder} className="chart-button">Place Order</button></Link>
+               <button onClick={handleProceedCheckout} className="chart-button">Proceed Checkout</button>
                 </Cart>
             </div>   
         </div>
