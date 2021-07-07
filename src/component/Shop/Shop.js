@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import fakeData from '../../fakeData';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
@@ -8,29 +7,35 @@ import './Shop.css'
 
 
 const Shop = () => {
-    
-    const fakeData10 = fakeData.slice(0, 10);
-    const [products, setProducts] = useState(fakeData10)
+    const [products, setProducts] = useState([])
     const [chart, setChart] = useState([])
+
+    useEffect(()=>{
+        fetch('https://sheltered-savannah-45789.herokuapp.com/products')
+        .then(res=> res.json())
+        .then(data=> setProducts(data))
+    },[])
 
     useEffect(()=>{
         const addededProduct = getDatabaseCart()
         const addededProductKey = Object.keys(addededProduct)
-        const totalProduct = addededProductKey.map(pdKeys=>{
-            const product=fakeData.find(product=> product.key === pdKeys)
-            product.quantity = addededProduct[pdKeys]
-            return product;
+        fetch('https://sheltered-savannah-45789.herokuapp.com/productsByKeys',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(addededProductKey)
         })
-        setChart(totalProduct);
-    },[])
+        .then(res=> res.json())
+        .then(data=>setChart(data));
+    },[]);
 
     const handleAddProduct=(product)=>{
+        console.log(product);
         const sameProduct = chart.find(pd=> pd.key=== product.key)
         let count = 1
         if(sameProduct){
             count = product.quantity + 1;
             sameProduct.quantity = count;
-            const others = chart.filter(pd => pd.key != sameProduct.key)
+            const others = chart.filter(pd => pd.key !== sameProduct.key)
             let newChart = [...others,sameProduct]
             setChart(newChart)
         }
@@ -51,7 +56,7 @@ const Shop = () => {
                 products.map(product =>
                   <Product 
                     product={product}
-                    key={product.key}
+                    id={product._id}
                     showButton={true}
                     handleAddProduct={handleAddProduct}>
                   </Product>)

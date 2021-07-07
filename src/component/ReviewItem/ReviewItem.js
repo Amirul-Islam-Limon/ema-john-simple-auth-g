@@ -2,7 +2,6 @@ import React from 'react';
 import './ReviewItem.css'
 
 const ReviewItem = (props) => {
-    // console.log(props.product)
     const {name,price, quantity,key} = props.product
     return (
         <div className="review-order">

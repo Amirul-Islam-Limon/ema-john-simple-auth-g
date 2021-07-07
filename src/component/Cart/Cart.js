@@ -3,7 +3,7 @@ import React from 'react';
 
 const Cart = (props) => {
     // console.log(props)
-    const productPrice = props.cart.reduce((total, product)=> total + product.price* product.quantity,0)
+    const productPrice = props.cart.reduce((total, product)=> total + product.price*1,0)
     let shippingCost = 6.99;
     if(productPrice > 35){
         shippingCost = 0

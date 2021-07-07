@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import fakeData from '../../fakeData';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
@@ -8,19 +7,22 @@ import {Link, useHistory} from 'react-router-dom'
 
 const Review = () => {
    const [cart, setCart] =useState([])
+//    console.log(cart)
     useEffect(()=>{
         const savedCart = getDatabaseCart()
         const productKeys = Object.keys(savedCart)
+        // console.log(productKeys)
 
-        const cartProduct = productKeys.map(key=>{
-            const cartProduct = fakeData.find(product => product.key === key)
-            cartProduct.quantity= savedCart[key];
-            return cartProduct
+        fetch('https://sheltered-savannah-45789.herokuapp.com/productsByKeys',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(productKeys)
         })
-        setCart(cartProduct);
+        .then(res=> res.json())
+        .then(data=>setCart(data));
     },[])
     const removeProduct=(productKey)=>{
-        const newCart = cart.filter(pd => pd.key != productKey)
+        const newCart = cart.filter(pd => pd.key !== productKey)
         setCart(newCart);
         removeFromDatabaseCart(productKey)
     }

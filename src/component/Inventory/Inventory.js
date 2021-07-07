@@ -1,9 +1,16 @@
 import React from 'react';
-
 const Inventory = () => {
+    const handleAddProduct=()=>{
+        const product = {}
+        fetch("https://sheltered-savannah-45789.herokuapp.com/addProduct",{
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify(product)
+        })
+    }
     return (
         <div>
-            <h1>Inventory is comming soon................</h1>
+            <button onClick={handleAddProduct}>Add Product</button>
         </div>
     );
 };
