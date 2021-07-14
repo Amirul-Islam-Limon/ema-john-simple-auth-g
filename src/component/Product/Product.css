@@ -8,6 +8,8 @@
 .product-name{
     color: blue;
     font-weight: 500;
+    font-size: 18px;
+    list-style: none;
 }
 .product-information{
     margin-left: 10px;
@@ -19,4 +21,7 @@
     border:1px solid rgb(150, 129, 10);
     border-radius: 5px;
     cursor: pointer;
+}
+.product-information a{
+    text-decoration:none;
 }

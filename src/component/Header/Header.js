@@ -15,6 +15,10 @@ const Header = () => {
                 <Link to="/inventory"><a href="">Manage Inventory</a></Link>
                 <button onClick={()=> setLoggedInUser({})}>Sign out</button>
             </nav>
+            <div className="search-bar">
+                <input placeholder="Search here" type="text" />
+                <button>Search</button>
+            </div>
         </div>
     );
 };

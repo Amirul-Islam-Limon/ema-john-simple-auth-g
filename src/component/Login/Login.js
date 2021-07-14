@@ -118,6 +118,15 @@ function Login() {
     setUser(newUserInfo)
   });
     }
+
+  // set id token in session storage for prevant aganin and again login.
+  const setUserToken=()=> {
+    firebase.auth().currentUser.getIdToken(true)
+    .then(function(idToken) {
+      sessionStorage.setItem('token',idToken)
+    }).catch(function(error) {
+    });
+  }
   
   if(!newUser && user.email && user.password){
     firebase.auth().signInWithEmailAndPassword(user.email, user.password)
@@ -127,6 +136,7 @@ function Login() {
     const newUserInfo = {...user}
     newUserInfo.success = "User Log in successfully"
     newUserInfo.error = ""
+    setUserToken();
     setUser(newUserInfo)
     setLoggedInUser(newUserInfo)
     history.replace(from);

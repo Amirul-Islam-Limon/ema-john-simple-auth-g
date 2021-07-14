@@ -3,14 +3,14 @@ import { useParams } from 'react-router';
 import Product from '../Product/Product';
 
 const ProductDetails = () => {
-    const [products, setProducts]= useState({})
+    const [product, setProduct]= useState({})
     const {productKey} = useParams()
     useEffect(()=>{
         fetch('https://sheltered-savannah-45789.herokuapp.com/products/'+productKey)
         .then(res=>res.json())
-        .then(data=>setProducts(data))
+        .then(data=>setProduct(data))
     },[productKey])
-    const product =products.find(pd=> pd.key === productKey);
+    // const product =products?.find(pd=> pd.key === productKey);
     
     return (
         <div>
